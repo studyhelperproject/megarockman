@@ -1,3 +1,51 @@
+## 技術スタック一覧
+
+### コアエンジン・レンダリング
+
+- **Phaser.js（v3）**
+オープンソースHTML5 2Dゲームエンジン。WebGL\&Canvas両対応、物理エンジン・アニメーション・入力・サウンド管理など総合サポート。[^3][^10][^1]
+
+
+### 言語・環境
+
+- **JavaScript / TypeScript**
+ゲームロジック・シーン設計・AI制御に利用。TypeScript化すれば型安全＆開発効率アップもできるよ。[^9][^1]
+- **Node.js + npm**
+ライブラリ管理・開発サーバー（Live ServerやExpress、Vite/Next.js併用もOK）。[^2][^4]
+
+
+### アセット管理・生成
+
+- **無料アセットサイト**
+OpenGameArt, Kenney, itch.io などの8bit素材セット
+- **Gemini画像生成API**
+テキストプロンプトからキャラ・背景・UI部品自動生成（PNG、SVG, スプライトシート）
+- **PhaserのAsset Loader**
+画像・音声・JSON・Tilemap等をプリロード、アセットパス自動管理。[^1][^3]
+
+
+### サウンド
+
+- **Ogg/MP3/WAV対応無料素材**＋Gemini生成
+- **Phaser Audio System**（SE/BGM再生、ループ、ボリューム・パン設定）
+
+
+### 入力対応
+
+- **Phaser 標準のキーボード/マウス/タッチ/ゲームパッドサポート**（クロスデバイス）。[^10][^1]
+
+
+### テスト・デプロイ
+
+- **Live Server / Vercel / Netlify / GitHub Pages**
+開発・公開フロー自動化（CI連携可）
+
+
+### オプション
+
+- **React/Next.js連携**（スコアランキングやプロフィール表示等の外部UI連携用に選択可）[^2][^9]
+- **TypeScript**
+クラス整理・型安全・Geminiコード生成時のバグ抑制
 
 ***
 
