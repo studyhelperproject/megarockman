@@ -1,4 +1,4 @@
-import Phaser from 'phaser';
+import * as Phaser from 'phaser';
 import { Bullet } from '../objects/Bullet';
 import { Enemy } from '../objects/Enemy';
 
