@@ -1,6 +1,11 @@
 {
   "name": "app",
   "version": "1.0.0",
+  "description": "Rockman Clone project",
+  "main": "src/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node node_modules/http-server/bin/http-server ."
   "description": "- **Phaser.js（v3）** オープンソースHTML5 2Dゲームエンジン。WebGL\\&Canvas両対応、物理エンジン・アニメーション・入力・サウンド管理など総合サポート。[^3][^10][^1]",
   "main": "index.js",
   "scripts": {
@@ -20,11 +25,9 @@
   },
   "homepage": "https://github.com/studyhelperproject/megarockman#readme",
   "dependencies": {
+    "http-server": "^14.1.1"
     "phaser": "^3.90.0"
   },
-  "devDependencies": {
-    "typescript": "^5.9.2",
-    "vite": "^7.1.3"
   "devDependencies": {
     "@types/node": "^24.3.0",
     "ts-node": "^10.9.2",
