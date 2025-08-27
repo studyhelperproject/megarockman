@@ -60,16 +60,20 @@ jobs:
     needs: build-and-deploy
     if: failure()
     steps:
+      - name: Create issue body
+        run: |
+          cat <<'EOF' > issue-body.md
+          GitHub Actionsの`build-and-deploy`ジョブが失敗しました。
+          原因は、`npm run build`ステップでのエラーです。
+
+          **関連リンク:**
+          [ワークフロー実行ログ](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+          EOF
       - name: Create issue on build failure
-        uses: peter-evans/create-or-update-issue@v3
+        uses: peter-evans/create-issue-from-file@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           title: '自動生成: ビルドエラーが発生しました'
-          body: |
-            GitHub Actionsの`build-and-deploy`ジョブが失敗しました。
-            原因は、`npm run build`ステップでのエラーです。
-            
-            **関連リンク:**
-            [ワークフロー実行ログ](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+          content-filepath: ./issue-body.md
           labels: 'assign-to-jules,bug'
           assignees: 'jules'
