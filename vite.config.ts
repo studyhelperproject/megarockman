@@ -6,5 +6,13 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
+    chunkSizeWarningLimit: 1500,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          phaser: ['phaser'],
+        },
+      },
+    },
   },
 });
