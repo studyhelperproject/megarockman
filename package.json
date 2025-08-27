@@ -1,0 +1,26 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "- **Phaser.js（v3）** オープンソースHTML5 2Dゲームエンジン。WebGL\\&Canvas両対応、物理エンジン・アニメーション・入力・サウンド管理など総合サポート。[^3][^10][^1]",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/studyhelperproject/megarockman.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/studyhelperproject/megarockman/issues"
+  },
+  "homepage": "https://github.com/studyhelperproject/megarockman#readme",
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2"
+  }
+}
