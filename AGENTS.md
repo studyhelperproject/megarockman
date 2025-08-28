@@ -83,4 +83,18 @@ For complex or repetitive tasks, define the request in a `.yml` file within the 
       frames: 3
       description: "Lifts helmet and shoots a 3-way bullet."
       size_per_frame: "24x24"
+## 8. Scope of AI Agent's Work
+
+To ensure focus and prevent unintended changes, the agent should adhere to the following scope:
+
+### In Scope (What to do ✅)
+- Generate new assets (sprites, tilesets, backgrounds) and place them in the `/assets` directory.
+- Create new game scenes or enemy logic files in the `/src` directory based on explicit instructions.
+- Write or modify automation scripts in the `/scripts` directory.
+- Refactor code for readability or performance **when specifically asked to**.
+
+### Out of Scope (What NOT to do ❌)
+- Do not modify core configuration files like `package.json`, `tsconfig.json`, or `.github/workflows/*.yml` without explicit approval.
+- Do not add or remove npm dependencies.
+- Do not commit directly to the `main` branch. Always work on a feature branch.
 ---
