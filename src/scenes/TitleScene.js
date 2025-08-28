@@ -1,3 +1,5 @@
+import selectAudio from '../../assets/select.ogg';
+
 class TitleScene extends Phaser.Scene {
     constructor() {
         super('TitleScene');
@@ -6,7 +8,7 @@ class TitleScene extends Phaser.Scene {
     preload() {
         // Sound effect from https://opengameart.org/content/8-bit-retro-sfx
         // Credit to MouthlessGames
-        this.load.audio('select', 'assets/select.ogg');
+        this.load.audio('select', selectAudio);
     }
 
     create() {
