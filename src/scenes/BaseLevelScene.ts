@@ -66,9 +66,6 @@ export default abstract class BaseLevelScene extends Phaser.Scene {
         frameRate: 20
     });
 
-    // Create level-specific content
-    this.createLevel();
-
     // Player Bullets
     this.playerBullets = this.physics.add.group({
         classType: Bullet,
@@ -86,6 +83,9 @@ export default abstract class BaseLevelScene extends Phaser.Scene {
     this.enemies = this.physics.add.group({
         runChildUpdate: true,
     });
+
+    // Create level-specific content
+    this.createLevel();
 
     // Input
     this.cursors = this.input.keyboard.createCursorKeys();
