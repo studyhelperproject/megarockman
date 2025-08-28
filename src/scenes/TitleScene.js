@@ -4,6 +4,7 @@ class TitleScene extends Phaser.Scene {
     }
 
     preload() {
+        this.load.setBaseURL('/megarockman/');
         // Sound effect from https://opengameart.org/content/8-bit-retro-sfx
         // Credit to MouthlessGames
         this.load.audio('select', 'assets/select.ogg');
