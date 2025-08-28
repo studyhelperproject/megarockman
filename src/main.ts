@@ -1,6 +1,6 @@
 import * as Phaser from 'phaser';
 import TitleScene from './scenes/TitleScene.js';
-import GameScene from './scenes/GameScene';
+import GameScene from './scenes/GameScene.ts';
 import GameOverScene from './scenes/GameOverScene.js';
 
 const config: Phaser.Types.Core.GameConfig = {
