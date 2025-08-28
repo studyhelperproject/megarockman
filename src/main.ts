@@ -17,7 +17,7 @@ const config: Phaser.Types.Core.GameConfig = {
   },
   scene: [TitleScene, GameScene, GameOverScene],
   loader: {
-    baseURL: '/megarockman/',
+    baseURL: import.meta.env.BASE_URL,
   },
 };
 
