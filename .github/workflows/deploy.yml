@@ -6,28 +6,24 @@ on:
       - main
   workflow_dispatch:
 
+# 権限設定をトップレベルに移動し、全ジョブのデフォルト権限を制限
 permissions:
   contents: read
-  pages: write
-  id-token: write
-  issues: write # Issue作成のために'issues: write'権限を追加
 
 concurrency:
   group: 'pages'
   cancel-in-progress: false
 
 jobs:
-  build-and-deploy:
+  # 1. ビルド専用のジョブ
+  build:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deploy.outputs.page_url }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4 # v3 -> v4に更新
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4 # v3 -> v4に更新
         with:
           node-version: '20'
           cache: 'npm'
@@ -44,30 +40,49 @@ jobs:
         run: npm run build
 
       - name: Upload artifact for Pages
-        if: success() # ビルド成功時のみ実行
         uses: actions/upload-pages-artifact@v3
         with:
+          # `dist`ディレクトリをアーティファクトとしてアップロード
           path: ./dist
 
+  # 2. デプロイ専用のジョブ
+  deploy:
+    # `build`ジョブが成功したら実行
+    needs: build
+    
+    # デプロイに必要な権限をこのジョブにのみ付与
+    permissions:
+      pages: write
+      id-token: write
+
+    # デプロイ環境を指定（エラーの根本原因）
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+    steps:
       - name: Deploy to GitHub Pages
-        if: success() # ビルド成功時のみ実行
-        id: deploy
+        id: deployment # id名を変更（必須ではない）
         uses: actions/deploy-pages@v4
 
-      - name: URL output
-        if: success() # ビルド成功時のみ実行
-        run: echo "Deployed to ${{ steps.deploy.outputs.page_url }}"
-
+  # 3. 失敗時にIssueを作成するジョブ
   create-issue-on-failure:
     runs-on: ubuntu-latest
-    needs: build-and-deploy
+    # buildまたはdeployジョブが失敗した場合に実行
+    needs: [build, deploy]
     if: failure()
+    
+    # Issue作成に必要な権限を付与
+    permissions:
+      issues: write
+      
     steps:
       - name: Create issue body
         run: |
           cat <<'EOF' > issue-body.md
-          GitHub Actionsの`build-and-deploy`ジョブが失敗しました。
-          原因は、`npm run build`ステップでのエラーです。
+          GitHub Actionsのワークフローが失敗しました。
+          ログを確認して対応してください。
 
           **関連リンク:**
           [ワークフロー実行ログ](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
@@ -76,7 +91,7 @@ jobs:
         uses: peter-evans/create-issue-from-file@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          title: '自動生成: ビルドエラーが発生しました'
+          title: '自動生成: GitHub Actionsのビルドまたはデプロイに失敗しました'
           content-filepath: ./issue-body.md
           labels: 'assign-to-jules,bug'
-          assignees: 'jules'
+          assignees: 'jules' # ユーザー名がjulesで正しいか確認してください
