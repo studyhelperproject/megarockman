@@ -1,7 +1,6 @@
 import * as Phaser from 'phaser';
 import { Bullet } from '../objects/Bullet';
 import { Enemy } from '../objects/Enemy';
-import spritesheet from '../../assets/spritesheet.png';
 
 export default class GameScene extends Phaser.Scene {
   private player!: Phaser.Physics.Arcade.Sprite;
@@ -16,7 +15,7 @@ export default class GameScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.spritesheet('spritesheet', spritesheet, { frameWidth: 16, frameHeight: 16 });
+    this.load.spritesheet('spritesheet', 'assets/spritesheet.png', { frameWidth: 16, frameHeight: 16 });
   }
 
   create() {
