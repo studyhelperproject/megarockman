@@ -66,32 +66,32 @@ jobs:
         id: deployment # id名を変更（必須ではない）
         uses: actions/deploy-pages@v4
 
-  # 3. 失敗時にIssueを作成するジョブ
-  create-issue-on-failure:
-    runs-on: ubuntu-latest
-    # buildまたはdeployジョブが失敗した場合に実行
-    needs: [build, deploy]
-    if: failure()
+  # # 3. 失敗時にIssueを作成するジョブ
+  # create-issue-on-failure:
+  #   runs-on: ubuntu-latest
+  #   # buildまたはdeployジョブが失敗した場合に実行
+  #   needs: [build, deploy]
+  #   if: failure()
     
-    # Issue作成に必要な権限を付与
-    permissions:
-      issues: write
+  #   # Issue作成に必要な権限を付与
+  #   permissions:
+  #     issues: write
       
-    steps:
-      - name: Create issue body
-        run: |
-          cat <<'EOF' > issue-body.md
-          GitHub Actionsのワークフローが失敗しました。
-          ログを確認して対応してください。
+  #   steps:
+  #     - name: Create issue body
+  #       run: |
+  #         cat <<'EOF' > issue-body.md
+  #         GitHub Actionsのワークフローが失敗しました。
+  #         ログを確認して対応してください。
 
-          **関連リンク:**
-          [ワークフロー実行ログ](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
-          EOF
-      - name: Create issue on build failure
-        uses: peter-evans/create-issue-from-file@v5
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          title: '自動生成: GitHub Actionsのビルドまたはデプロイに失敗しました'
-          content-filepath: ./issue-body.md
-          labels: 'assign-to-jules,bug'
-          assignees: 'jules' # ユーザー名がjulesで正しいか確認してください
+  #         **関連リンク:**
+  #         [ワークフロー実行ログ](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+  #         EOF
+  #     - name: Create issue on build failure
+  #       uses: peter-evans/create-issue-from-file@v5
+  #       with:
+  #         token: ${{ secrets.GITHUB_TOKEN }}
+  #         title: '自動生成: GitHub Actionsのビルドまたはデプロイに失敗しました'
+  #         content-filepath: ./issue-body.md
+  #         labels: 'assign-to-jules,bug'
+  #         assignees: 'jules' # ユーザー名がjulesで正しいか確認してください
