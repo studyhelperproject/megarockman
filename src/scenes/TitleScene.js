@@ -1,4 +1,4 @@
-import selectAudio from '../assets/select.ogg';
+import selectAudio from '../../assets/select.ogg';
 
 class TitleScene extends Phaser.Scene {
     constructor() {
