@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 
-export default defineConfig({
-  base: '/megarockman/',
+export default defineConfig(({ command }) => ({
+  base: command === 'build' ? '/megarockman/' : '/',
   server: {
     port: 3000,
   },
@@ -16,4 +16,4 @@ export default defineConfig({
       },
     },
   },
-});
+}));
