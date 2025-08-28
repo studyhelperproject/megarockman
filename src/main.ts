@@ -16,6 +16,9 @@ const config: Phaser.Types.Core.GameConfig = {
     },
   },
   scene: [TitleScene, GameScene, GameOverScene],
+  loader: {
+    baseURL: import.meta.env.BASE_URL,
+  },
 };
 
 new Phaser.Game(config);
