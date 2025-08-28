@@ -20,7 +20,7 @@ class TitleScene extends Phaser.Scene {
         startButton.setInteractive();
 
         startButton.on('pointerdown', () => {
-            this.scene.start('MetalManStageScene');
+            this.scene.start('GameScene');
         });
     }
 }
