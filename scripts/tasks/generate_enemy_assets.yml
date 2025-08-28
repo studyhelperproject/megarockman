@@ -1,0 +1,17 @@
+- task: generate_asset
+  asset_name: "Met" # メットール
+  type: "sprite_sheet"
+  description: "A common small enemy that hides under a helmet."
+  specifications:
+    style: "8-bit, Rockman 2"
+    palette: "NES"
+    output_path: "public/assets/sprites/enemies/met.png"
+  animations:
+    - name: "idle"
+      frames: 2
+      description: "Hiding under the helmet, slightly bobbing."
+      size_per_frame: "24x24"
+    - name: "attack"
+      frames: 3
+      description: "Lifts helmet and shoots a 3-way bullet."
+      size_per_frame: "24x24"
