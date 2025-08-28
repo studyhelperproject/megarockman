@@ -47,5 +47,13 @@
 - Automate repetitive tasks such as sprite animation setup, physics tuning, and AI enemy behavior generation.
 - Generate code snippets aligned with Phaser.js patterns and project naming conventions.
 - Report any ambiguity or missing information to human developers for clarification.
+### 7.1. Asset Generation Prompts
 
+When requesting assets, use the following template to provide clear instructions.
+
+**Prompt Template:**
+`Generate a [asset_type] for [purpose]. Style: 8-bit, [specific_style (e.g., NES color palette, Rockman 2-like)]. Details: [specific_details (e.g., 32x32 pixels, 4 frames of running animation, transparent background)]. Output format: [format (e.g., PNG sprite sheet)].`
+
+**Example:**
+`Generate a sprite sheet for the player's running animation. Style: 8-bit, Rockman 2-like, using the NES color palette. Details: 4 frames of animation on a single row, each frame 32x32 pixels, transparent background. Output format: PNG sprite sheet.`
 ---
