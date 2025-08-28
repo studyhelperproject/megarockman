@@ -1,7 +1,6 @@
 import * as Phaser from 'phaser';
 import { Bullet } from '../objects/Bullet';
 import { Met } from '../objects/Met';
-import { MetalMan } from '../objects/MetalMan';
 
 export default abstract class BaseLevelScene extends Phaser.Scene {
   protected player!: Phaser.Physics.Arcade.Sprite;
@@ -101,6 +100,9 @@ export default abstract class BaseLevelScene extends Phaser.Scene {
     // Launch HUD Scene
     this.scene.launch('HUDScene');
     this.events.emit('healthChanged', this.playerHealth);
+
+    // Listen for events from other objects
+    this.events.on('unlock_weapon', this.unlockWeapon, this);
   }
 
   protected abstract preloadLevelAssets(): void;
@@ -112,8 +114,9 @@ export default abstract class BaseLevelScene extends Phaser.Scene {
 
   handleBulletEnemyCollision(bullet: Phaser.GameObjects.GameObject, enemy: Phaser.GameObjects.GameObject) {
     bullet.destroy();
-    if (enemy instanceof MetalMan) {
-      enemy.takeDamage(3);
+    // Use duck typing to check for a takeDamage method
+    if ('takeDamage' in enemy && typeof (enemy as any).takeDamage === 'function') {
+      (enemy as any).takeDamage(3);
     } else {
       enemy.destroy();
     }

@@ -1,6 +1,5 @@
 import * as Phaser from 'phaser';
 import { Bullet } from './Bullet';
-import BaseLevelScene from '../scenes/BaseLevelScene';
 
 enum MetalManState {
   Jumping,
@@ -76,7 +75,7 @@ export class MetalMan extends Phaser.Physics.Arcade.Sprite {
   public takeDamage(damage: number) {
       this.health -= damage;
       if (this.health <= 0) {
-          (this.scene as BaseLevelScene).unlockWeapon('metal_blade');
+          this.scene.events.emit('unlock_weapon', 'metal_blade');
           this.destroy();
       }
   }
