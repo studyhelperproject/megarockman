@@ -1,4 +1,4 @@
-name: Deploy Phaser Game to GitHub Pages
+name: Build and Deploy to GitHub Pages
 
 on:
   push:
@@ -6,24 +6,21 @@ on:
       - main
   workflow_dispatch:
 
-# 権限設定をトップレベルに移動し、全ジョブのデフォルト権限を制限
 permissions:
-  contents: read
-
-concurrency:
-  group: 'pages'
-  cancel-in-progress: false
+  contents: write
 
 jobs:
-  # 1. ビルド専用のジョブ
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4 # v3 -> v4に更新
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4 # v3 -> v4に更新
+        uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
@@ -31,67 +28,15 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run lint & test (optional)
-        run: |
-          npm run lint || true
-          npm run test || true
-
       - name: Build game
         run: npm run build
 
-      - name: Upload artifact for Pages
-        uses: actions/upload-pages-artifact@v3
-        with:
-          # `dist`ディレクトリをアーティファクトとしてアップロード
-          path: ./dist
-
-  # 2. デプロイ専用のジョブ
-  deploy:
-    # `build`ジョブが成功したら実行
-    needs: build
-    
-    # デプロイに必要な権限をこのジョブにのみ付与
-    permissions:
-      pages: write
-      id-token: write
-
-    # デプロイ環境を指定（エラーの根本原因）
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    runs-on: ubuntu-latest
-    steps:
       - name: Deploy to GitHub Pages
-        id: deployment # id名を変更（必須ではない）
-        uses: actions/deploy-pages@v4
-
-  # # 3. 失敗時にIssueを作成するジョブ
-  # create-issue-on-failure:
-  #   runs-on: ubuntu-latest
-  #   # buildまたはdeployジョブが失敗した場合に実行
-  #   needs: [build, deploy]
-  #   if: failure()
-    
-  #   # Issue作成に必要な権限を付与
-  #   permissions:
-  #     issues: write
-      
-  #   steps:
-  #     - name: Create issue body
-  #       run: |
-  #         cat <<'EOF' > issue-body.md
-  #         GitHub Actionsのワークフローが失敗しました。
-  #         ログを確認して対応してください。
-
-  #         **関連リンク:**
-  #         [ワークフロー実行ログ](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
-  #         EOF
-  #     - name: Create issue on build failure
-  #       uses: peter-evans/create-issue-from-file@v5
-  #       with:
-  #         token: ${{ secrets.GITHUB_TOKEN }}
-  #         title: '自動生成: GitHub Actionsのビルドまたはデプロイに失敗しました'
-  #         content-filepath: ./issue-body.md
-  #         labels: 'assign-to-jules,bug'
-  #         assignees: 'jules' # ユーザー名がjulesで正しいか確認してください
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          # The following options are optional, but recommended
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          commit_message: 'Deploy to GitHub Pages'
