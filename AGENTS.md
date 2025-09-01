@@ -97,4 +97,13 @@ To ensure focus and prevent unintended changes, the agent should adhere to the f
 - Do not modify core configuration files like `package.json`, `tsconfig.json`, or `.github/workflows/*.yml` without explicit approval.
 - Do not add or remove npm dependencies.
 - Do not commit directly to the `main` branch. Always work on a feature branch.
+
+## 9. Deployment
+- **Platform:** The project is deployed to GitHub Pages.
+- **Workflow:** Deployment is handled automatically by the workflow defined in `.github/workflows/deploy.yml`. This workflow builds the application and prepares it for deployment.
+- **Repository Settings:** For the deployment to succeed, the repository's settings must be configured correctly.
+  - Go to `Settings` > `Pages`.
+  - Under `Build and deployment`, set the **Source** to **"GitHub Actions"**.
+- **URL Structure:** The `vite.config.ts` is configured with `base: '/megarockman/'`.
+- **Final URL:** The live application is accessible at `https://studyhelperproject.github.io/megarockman/`.
 ---
