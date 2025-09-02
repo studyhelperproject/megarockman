@@ -55,17 +55,6 @@ export default abstract class BaseLevelScene extends Phaser.Scene {
         frameRate: 10,
         repeat: -1
     });
-    this.anims.create({
-        key: 'met_idle',
-        frames: [ { key: 'spritesheet', frame: 0 } ],
-        frameRate: 20
-    });
-    this.anims.create({
-        key: 'met_attack',
-        frames: [ { key: 'spritesheet', frame: 1 } ],
-        frameRate: 20
-    });
-
     // Player Bullets
     this.playerBullets = this.physics.add.group({
         classType: Bullet,

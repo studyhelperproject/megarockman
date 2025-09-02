@@ -9,9 +9,25 @@ export default class MetalManStageScene extends BaseLevelScene {
 
   protected preloadLevelAssets(): void {
     this.load.tilemapTiledJSON('metal_man_map', 'assets/tilemaps/metal_man_level.json');
+    this.load.spritesheet('met', 'assets/sprites/enemies/met.png', { frameWidth: 24, frameHeight: 24 });
   }
 
   protected createLevel(): void {
+    // Create animations for the Met enemy
+    this.anims.create({
+      key: 'met_idle',
+      frames: this.anims.generateFrameNumbers('met', { start: 0, end: 1 }),
+      frameRate: 2,
+      repeat: -1,
+    });
+
+    this.anims.create({
+      key: 'met_attack',
+      frames: this.anims.generateFrameNumbers('met', { start: 2, end: 4 }),
+      frameRate: 8,
+      repeat: 0,
+    });
+
     const map = this.make.tilemap({ key: 'metal_man_map' });
     const tileset = map.addTilesetImage('spritesheet', 'spritesheet');
 
