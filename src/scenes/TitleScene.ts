@@ -12,14 +12,16 @@ class TitleScene extends Phaser.Scene {
     }
 
     create() {
-        this.sound.play('select');
-
         this.add.text(400, 250, 'Rockman Clone', { fontSize: '48px', fill: '#fff' }).setOrigin(0.5);
 
         const startButton = this.add.text(400, 350, 'Start Game', { fontSize: '32px', fill: '#fff' }).setOrigin(0.5);
         startButton.setInteractive();
 
         startButton.on('pointerdown', () => {
+            if (this.sound.context.state === 'suspended') {
+                this.sound.context.resume();
+            }
+            this.sound.play('select');
             this.scene.start('GameScene');
         });
     }
