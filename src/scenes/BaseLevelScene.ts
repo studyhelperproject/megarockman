@@ -25,7 +25,7 @@ export default abstract class BaseLevelScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.spritesheet('spritesheet', 'assets/spritesheet.png', { frameWidth: 16, frameHeight: 16 });
+    this.load.spritesheet('spritesheet', 'assets/spritesheet.png', { frameWidth: 24, frameHeight: 24 });
     this.preloadLevelAssets();
   }
 
@@ -33,25 +33,27 @@ export default abstract class BaseLevelScene extends Phaser.Scene {
     this.cameras.main.setBackgroundColor('#1e1e1e');
 
     // Player
-    this.player = this.physics.add.sprite(100, 500, 'spritesheet', 9).setCollideWorldBounds(true);
+    this.player = this.physics.add.sprite(100, 500, 'spritesheet', 33).setCollideWorldBounds(true);
     this.player.setName('player');
     this.player.setGravityY(300);
+    (this.player.body as Phaser.Physics.Arcade.Body).setSize(16, 24);
 
     // Common Animations
     this.anims.create({
         key: 'left',
-        frames: this.anims.generateFrameNumbers('spritesheet', { start: 9, end: 11 }),
+        frames: this.anims.generateFrameNumbers('spritesheet', { frames: [33, 34, 35] }),
         frameRate: 10,
         repeat: -1
     });
     this.anims.create({
         key: 'turn',
-        frames: [ { key: 'spritesheet', frame: 9 } ],
-        frameRate: 20
+        frames: this.anims.generateFrameNumbers('spritesheet', { frames: [33, 43] }),
+        frameRate: 2,
+        repeat: -1
     });
     this.anims.create({
         key: 'right',
-        frames: this.anims.generateFrameNumbers('spritesheet', { start: 9, end: 11 }),
+        frames: this.anims.generateFrameNumbers('spritesheet', { frames: [33, 34, 35] }),
         frameRate: 10,
         repeat: -1
     });
