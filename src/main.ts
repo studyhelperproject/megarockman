@@ -2,6 +2,8 @@ import * as Phaser from 'phaser';
 import TitleScene from './scenes/TitleScene.js';
 import GameScene from './scenes/GameScene.ts';
 import GameOverScene from './scenes/GameOverScene.js';
+import MetalManStageScene from './scenes/MetalManStageScene.ts';
+import HUDScene from './scenes/HUDScene.ts';
 
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
@@ -15,7 +17,7 @@ const config: Phaser.Types.Core.GameConfig = {
       debug: false,
     },
   },
-  scene: [TitleScene, GameScene, GameOverScene],
+  scene: [TitleScene, GameScene, GameOverScene, MetalManStageScene, HUDScene],
   loader: {
     baseURL: import.meta.env.BASE_URL,
   },

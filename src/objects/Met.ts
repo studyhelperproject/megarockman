@@ -12,7 +12,7 @@ export class Met extends Phaser.Physics.Arcade.Sprite {
   private enemyBullets: Phaser.Physics.Arcade.Group;
 
   constructor(scene: Phaser.Scene, x: number, y: number, enemyBullets: Phaser.Physics.Arcade.Group) {
-    super(scene, x, y, 'spritesheet', 0); // Start with frame 0 (hiding)
+    super(scene, x, y, 'met', 0); // Start with frame 0 (hiding)
     this.enemyBullets = enemyBullets;
 
     scene.add.existing(this);
